@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Token Redirect</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+		integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+	<link rel="stylesheet" href="/static/style.css">
+
+	<script type="text/javascript">
+		function initiate() {
+			const url = window.location.origin;
+			var hash = document.location.hash.substr(1);
+			var hashParts = hash.split("&");
+			var access_token = null;
+			for (var i = 0; i < hashParts.length; ++i) {
+				var parameterParts = hashParts[i].split("=");
+				var key = parameterParts[0];
+				var value = parameterParts[1];
+				if (key == "access_token") {
+					access_token = value;
+				}
+			}
+			document.getElementById("javascript").classList.remove("hide");
+			if (access_token != null) {
+				document.location.replace(url + "/store-token/" + access_token);
+			}
+			else {
+				document.getElementById("javascript").innerHTML = "Error: Token not found.";
+			}
+		}
+	</script>
+</head>
+
+<body onload="initiate()">
+	<div class="splash-container">
+		<div class="splash">
+			<h1 class="splash-head">Authentication Token</h1>
+			<noscript>
+				This page requires JavaScript
+			</noscript>
+			<p id="javascript" class="hide splash-subhead">
+				Please wait while you are redirected.
+			</p>
+		</div>
+	</div>
+</body>
+
+</html>
