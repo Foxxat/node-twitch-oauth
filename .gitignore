@@ -1,3 +1,6 @@
+# Config file
+config.ini
+
 # Logs
 logs
 *.log
